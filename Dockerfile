@@ -31,4 +31,5 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY . ./
 
 # start app
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+CMD [ "npm", "run-script", "special", "--", "--open"]
