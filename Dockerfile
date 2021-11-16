@@ -1,25 +1,34 @@
-FROM mhart/alpine-node:12
+# Borrowed from Art-Rents Client project
+#  ref: https://mherman.org/blog/dockerizing-a-react-app/
 
-# install dependencies
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+# pull official base image
+# https://hub.docker.com/_/node
+FROM node:16.8.0-alpine3.11
 
-# Copy all local files into the image.
-COPY . .
+# set working directory
+WORKDIR /usr/src/app
 
-RUN npm run build
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
 
-###
-# Only copy over the Node pieces we need
-# ~> Saves 35MB
-###
-# FROM mhart/alpine-node:slim-12
+# Add Python per https://github.com/nodejs/docker-node/issues/384
+# https://github.com/nodejs/docker-node/issues/282
+# --no-cache: download package index on-the-fly, no need to cleanup afterwards
+# --virtual: bundle packages, remove whole bundle at once, when done
+RUN apk add --no-cache --virtual build-dependencies \
+    python2 \
+    python3 \
+    make \
+    g++ \
+    && npm install \
+    && apk del build-dependencies
 
-# WORKDIR /app
-# COPY --from=0 /app .
-# COPY . .
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-EXPOSE 3000
-# CMD ["node", "./build"]
-CMD ["svelte-kit", "dev", "--host",  "0.0.0.0"]
+# add app
+COPY . ./
+
+# start app
+CMD ["npm", "start"]
