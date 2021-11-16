@@ -21,4 +21,5 @@ RUN npm run build
 # COPY . .
 
 EXPOSE 3000
-CMD ["node", "./build"]
+# CMD ["node", "./build"]
+CMD ["svelte-kit", "dev", "--host",  "0.0.0.0"]
