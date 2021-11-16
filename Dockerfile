@@ -42,7 +42,7 @@ RUN npm i --no-optional
 
 COPY . .
 
-RUN npm run build
+# RUN npm run build
 
 FROM node:14.17-slim
 
