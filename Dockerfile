@@ -32,4 +32,4 @@ COPY . ./
 
 # start app
 # CMD ["npm", "start"]
-CMD [ "npm", "run-script", "special", "--", "--open"]
+CMD ["svelte-kit",  "dev",  "--host", "0.0.0.0"]
