@@ -1,0 +1,104 @@
+# ---Other Docker Tools-----------------------------------------------------------
+
+#     $ docker info
+#     $ docker-compose verbose up
+#     $ docker-compose down -v
+#     $ docker-compose config                      ## Validate and view the Compose file. Helpful for volumes and $() values
+#     $ docker logs myContainerImage               ## Display Log File
+#     $ docker inspect myContainerImage            ## Get Info on Container, including IP Address
+#     $ docker port myContainerImage               ## Get info on assigned ports.
+#     $ docker-machine ip default                  ## find the hostname
+
+# ---Containers and Images--------------------------------------------------------
+
+#     Docker containers are like DVD drive
+#     Docker images are like DVD's ... they are unique, individual, and fit into a container
+
+#     $ docker images       ## list images
+#     $ docker images -a    ## list all images
+#     $ docker ps           ## list containers
+#     $ docker ps -a        ## list all containers
+#     See https://docs.docker.com/engine/reference/commandline/ps/
+#     $ docker ps --latest , -l     ## Show the latest created container (includes all states)
+#     $ docker ps --no-trunc        ## Don't truncate output
+#     $ docker ps --quiet , -q      ##  Only display container IDs
+#     $ docker ps --size , -s       ##  Display total file sizes
+
+#     $ docker stop Cool_Static_Site           ## Stop container
+#     $ docker rm Cool_Static_Site             ## Remove container
+#     $ docker rm -f static-site-2             ## Shortcut, stop and remove the container
+#     $ docker rm `docker ps --no-trunc -aq`   ## Remove all containers
+#     $ docker stop $(docker ps -a -q)         ## Stop all containers
+#     $ docker rm $(docker ps -a -q)           ## Remove all containers
+
+#     $ docker stop $(docker ps -a -q)  && docker rm $(docker ps -a -q)
+
+#     $ docker images -f dangling=true         ## List dangling images
+#     $ docker rmi $(docker images -f dangling=true -q)      ## remove dangling images
+#     $ docker rmi $(docker images -a -q)      ## Remove all images
+
+#     $ docker network ls -q                   ## List all networks
+#     $ docker network rm $(docker network ls -q)            ## Remove all of your networks
+
+# ---Docker Volumes---------------------------------------------------------------
+
+#     https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+
+#     $ docker volume ls                       ## List all volumes
+#     $ docker volume inspect                  ## Returns information about a volume.
+
+#     $ docker system prune -a                 ## remove any stopped containers and all unused images
+#     $ docker volume rm volume_name volume_name    ## Remove volume
+#     $ docker volume ls -f dangling=true           ## List Dangling Volumes
+#     $ docker volume prune                         ## Delete Dangling Volumes
+#     $ docker volume rm $(docker volume ls -q)     ## Remove unused volumes
+
+# ---Docker Services--------------------------------------------------------------
+
+#     $ docker service ls                           ## List services (swarm only)
+#     $ docker service rm service_name              ## Remove service (swarm only)
+
+# ---Shell into a running docker node container?----------------------------------
+
+#     Normally it's $ docker exec -it node-app-1 /bin/bash
+#     But that won't work with alpine node.  There try:
+#     docker exec -it node-app-1 sh
+
+#     $ df -h                         ## Display filesystem in human readible format
+
+# ---Start a container?-----------------------------------------------------------
+
+#     $ docker build -t my_container .             ## great for testing dockerfile
+#     $ docker run -p 3000:3000 my_container       ## use -dp for detached mode
+
+#     $ docker start my_container 
+
+# ---View all Env variables?------------------------------------------------------
+
+#     $ docker exec my_container env
+
+#---Docker-Compose----------------------------------------------------------------
+
+#     Note "docker compose" is NOT the same as "docker-compose"
+
+#     $ docker-compose build    Build a containers
+#     $ docker-compose run      Run the containers
+
+#     $ docker-compose up     Containers run as long as terminal is open. Note, 
+                              You don't want to start the containers on a production 
+                           server this way.  You will want to use the --detach 
+                           mode, see below.  
+                           
+                           Reminder:
+                           docker-compose up = docker-compose build + docker-compose run
+
+#     $ docker-compose up -d   (or) --detach  
+        Detached mode: Run containers in the background, print new container names.
+       
+#     $ docker-compose stop 
+        Stops running containers without removing them. They can be started again 
+        with docker-compose start.
+        
+#     $ docker-compose rm                Remove stopped service containers
+
+#     $ docker-compose down              Stop and remove all containers started with up

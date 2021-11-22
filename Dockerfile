@@ -16,11 +16,7 @@ COPY . .
 # Expose port 3000 for the SvelteKit app and 24678 for Vite's HMR
 EXPOSE 3000
 EXPOSE 24678
-# Run `yarn dev` and set the host to 0.0.0.0 so we can access the web app from outside
-# CMD ["yarn", "dev", "--host", "0.0.0.0"]
-# CMD ["svelte-kit", "dev", "--host", "0.0.0.0"]
-# RUN ["npm", "run-script", "build"]
-# RUN npm run-script build
+# Compile the program to the build folder
 RUN npm run build
-# CMD ["node", "build"]
+# Run the program from the build folder
 CMD node build
