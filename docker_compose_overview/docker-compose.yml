@@ -10,33 +10,33 @@ services:
 #         volumes:
 #           - /var/run/docker.sock:/tmp/docker.sock:ro
 #         restart: always
-    mysql_db:
-        image: mysql:latest
-        ports: 
-          -  3307:3307
-        environment:
-          -  DB_DATABASE=cp101_db
-          -  DB_PASSWORD=123password
-          -  DB_USERNAME=cp101_user
-          -  MYSQL_ROOT_PASSWORD=secret
-        volumes:
-          - mysql_db_data:/var/lib/mysql
+    # mysql_db:
+    #     image: mysql:latest
+    #     ports: 
+    #       -  3307:3307
+    #     environment:
+    #       -  DB_DATABASE=cp101_db
+    #       -  DB_PASSWORD=123password
+    #       -  DB_USERNAME=cp101_user
+    #       -  MYSQL_ROOT_PASSWORD=secret
+    #     volumes:
+    #       - mysql_db_data:/var/lib/mysql
             
-    phpmyadmin:
-        image: phpmyadmin
-        restart: always
-        depends_on:
-          -  mysql_db
-        environment:
-          PMA_HOST: mysql_db
-          PMA_USER: root
-          PMA_PASSWORD: secret
-        ports:
-          - 8081:8081
+    # phpmyadmin:
+    #     image: phpmyadmin
+    #     restart: always
+    #     depends_on:
+    #       -  mysql_db
+    #     environment:
+    #       PMA_HOST: mysql_db
+    #       PMA_USER: root
+    #       PMA_PASSWORD: secret
+    #     ports:
+    #       - 8081:8081
           
     sveltekit:
 #       https://stackoverflow.com/questions/65312857/building-a-docker-image-from-a-private-github-repository-with-docker-compose
-        build: ./
+        build: ../
         restart: always
         depends_on:
           -  mysql_db
@@ -51,11 +51,11 @@ services:
         ports:
             - 3000:3000
             - 24678:24678
-        container_name: "sveltekit_server"
+        container_name: "sk_serv"
         volumes:
             - sveltekit:/usr/src/app
-            - ./sveltekit2:/app
-            - '/app/node_modules'
+            # - ./sveltekit2:/app
+            # - '/app/node_modules'
         
 volumes:
     sveltekit: {}

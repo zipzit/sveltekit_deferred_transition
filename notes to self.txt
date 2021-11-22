@@ -1,0 +1,31 @@
+---Clone a particular branch?--------------------------------------------------
+
+    https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/
+
+---docker compose error--------------------------------------------------------
+
+    * Status: invalid reference format, Code: 1
+    https://stackoverflow.com/questions/45682010/docker-invalid-reference-format/58424498
+
+---NPM vs Yarn?----------------------------------------------------------------
+
+    One sample dockerfile we found used Yarn, another uses NPM.  What are the 
+    differences?
+
+    https://www.whitesourcesoftware.com/free-developer-tools/blog/npm-vs-yarn-which-should-you-choose/
+        NPM vs. Yarn: Which Package Manager Should You Choose?
+        August 12th, 2020 by Alfrick Opidi
+
+---Node Adapter for Svelte-----------------------------------------------------
+
+    https://github.com/sveltejs/kit/tree/master/packages/adapter-node
+    After you create an output directory (build), you start the app with 
+    $ node build                  ## cha Ching... 
+
+---Dockerfile Problems---------------------------------------------------------
+
+    There can only be one CMD instruction in a Dockerfile or build stage. Only 
+    the last one will have an effect.
+
+    We had:     CMD ["svelte-kit", "build"]   // this creates the build folder
+                CMD ["node", "build"]         // this runs the build folder

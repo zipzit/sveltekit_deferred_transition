@@ -80,8 +80,8 @@ const load = image => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
-    top: 0;
+    height: 80vh;
+    top: 20vh;
     left: 0;
 }
 
